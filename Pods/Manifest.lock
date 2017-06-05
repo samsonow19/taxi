@@ -1,0 +1,23 @@
+PODS:
+  - Alamofire (4.3.0)
+  - InputMask (2.2.1)
+  - PhoneNumberKit (1.2.2):
+    - PhoneNumberKit/PhoneNumberKitCore (= 1.2.2)
+    - PhoneNumberKit/UIKit (= 1.2.2)
+  - PhoneNumberKit/PhoneNumberKitCore (1.2.2)
+  - PhoneNumberKit/UIKit (1.2.2):
+    - PhoneNumberKit/PhoneNumberKitCore
+
+DEPENDENCIES:
+  - Alamofire (~> 4.3)
+  - InputMask
+  - PhoneNumberKit (~> 1.2)
+
+SPEC CHECKSUMS:
+  Alamofire: 856a113053a7bc9cbe5d6367a555d773fc5cfef7
+  InputMask: 8d3dd6953ac869dfb8a602c8b2f380a6e19f5e50
+  PhoneNumberKit: ffae8f18fb78c1425c7af973711b0b0fd4f4104f
+
+PODFILE CHECKSUM: 3b69524ef706ef3608ef69646601b37b0fc105a7
+
+COCOAPODS: 1.2.0

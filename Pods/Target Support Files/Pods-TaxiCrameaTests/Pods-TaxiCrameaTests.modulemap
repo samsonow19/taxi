@@ -1,0 +1,6 @@
+framework module Pods_TaxiCrameaTests {
+  umbrella header "Pods-TaxiCrameaTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,16 +1,73 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1217" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </view>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MainTableViewCell" rowHeight="148" id="Kz3-dh-jUd" customClass="MainTableViewCell" customModule="TaxiCramea" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="148"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Kz3-dh-jUd" id="Weg-a3-aZs">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="148"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iOL-Iq-20Z">
+                        <rect key="frame" x="336" y="8" width="31" height="14.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <color key="highlightedColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Симферополь Аэ" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PkN-G8-vh3">
+                        <rect key="frame" x="16" y="30.5" width="119" height="87"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ялта" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LM7-WQ-zDb">
+                        <rect key="frame" x="143" y="31" width="119" height="87"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="npP-5e-iJq">
+                        <rect key="frame" x="270" y="63.5" width="89" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="PkN-G8-vh3" firstAttribute="centerY" secondItem="Weg-a3-aZs" secondAttribute="centerY" id="FIL-Fn-75Y"/>
+                    <constraint firstItem="npP-5e-iJq" firstAttribute="width" secondItem="PkN-G8-vh3" secondAttribute="width" constant="-30" id="LSM-Cy-Umt"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="PkN-G8-vh3" secondAttribute="bottom" constant="22.5" id="LzW-RS-cBe"/>
+                    <constraint firstItem="PkN-G8-vh3" firstAttribute="height" secondItem="LM7-WQ-zDb" secondAttribute="height" id="TSX-8M-GWK"/>
+                    <constraint firstItem="npP-5e-iJq" firstAttribute="centerY" secondItem="PkN-G8-vh3" secondAttribute="centerY" id="U8d-1A-vqv"/>
+                    <constraint firstItem="PkN-G8-vh3" firstAttribute="top" secondItem="Weg-a3-aZs" secondAttribute="topMargin" constant="22" id="f4u-vX-BjN"/>
+                    <constraint firstItem="PkN-G8-vh3" firstAttribute="leading" secondItem="Weg-a3-aZs" secondAttribute="leadingMargin" constant="8" id="g32-7k-nt5"/>
+                    <constraint firstItem="LM7-WQ-zDb" firstAttribute="leading" secondItem="PkN-G8-vh3" secondAttribute="trailing" constant="8" id="gZ6-AQ-XLe"/>
+                    <constraint firstItem="iOL-Iq-20Z" firstAttribute="top" secondItem="Weg-a3-aZs" secondAttribute="top" constant="8" id="oJY-8T-bg9"/>
+                    <constraint firstAttribute="trailing" secondItem="iOL-Iq-20Z" secondAttribute="trailing" constant="8" id="tGX-IA-8cI"/>
+                    <constraint firstItem="LM7-WQ-zDb" firstAttribute="width" secondItem="PkN-G8-vh3" secondAttribute="width" id="uVb-MK-lCJ"/>
+                    <constraint firstItem="LM7-WQ-zDb" firstAttribute="centerY" secondItem="PkN-G8-vh3" secondAttribute="centerY" id="wuY-Xw-SKt"/>
+                    <constraint firstItem="npP-5e-iJq" firstAttribute="leading" secondItem="LM7-WQ-zDb" secondAttribute="trailing" constant="8" id="yJW-br-KEa"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="npP-5e-iJq" secondAttribute="trailing" constant="8" id="yum-4P-Uju"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="costLabel" destination="npP-5e-iJq" id="6iN-Q1-YRv"/>
+                <outlet property="dateLabel" destination="iOL-Iq-20Z" id="7cd-jC-hY2"/>
+                <outlet property="whenceLabel" destination="LM7-WQ-zDb" id="t0w-2m-AuV"/>
+                <outlet property="whereLabel" destination="PkN-G8-vh3" id="hFw-lP-HNn"/>
+            </connections>
+            <point key="canvasLocation" x="-129.5" y="-127"/>
+        </tableViewCell>
     </objects>
 </document>
