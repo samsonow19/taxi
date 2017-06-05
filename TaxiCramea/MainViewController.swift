@@ -8,9 +8,14 @@
 
 import UIKit
 import Alamofire
+import Toaster
+
+
 
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    
+    @IBOutlet var regionButtonArray: [UIButton]!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var hightMenuButton: NSLayoutConstraint!
 
@@ -20,44 +25,34 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var testView: UIView!
     
     var classAvto: Bool!
+    var countOrderIntoRegion = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     var orderArray = [OrderModel]()
+    var orderCurrentArray = [OrderModel]()
+    var currentRegion: String!  = regionArray[0]
+    var currentDay = CurrentDay.toDay
     
     @IBAction func regionButton(_ sender: UIButton) {
         testView.isHidden = true
-        
-        
-        switch sender.tag {
-
-        case 1:
-            var user: UserModel = UserModel.shared
-        case 2:
-            var user: UserModel = UserModel.shared
-        case 3:
-            var user: UserModel = UserModel.shared
-        case 4:
-            var user: UserModel = UserModel.shared
-        case 5:
-            var user: UserModel = UserModel.shared
-        case 6:
-            var user: UserModel = UserModel.shared
-        case 7:
-            var user: UserModel = UserModel.shared
-        case 8:
-            var user: UserModel = UserModel.shared
-        case 9:
-            var user: UserModel = UserModel.shared
-        case 10:
-            var user: UserModel = UserModel.shared
-        case 11:
-            var user: UserModel = UserModel.shared
-        case 12:
-            var user: UserModel = UserModel.shared
-        default:
-            var user: UserModel = UserModel.shared
-        }
+         currentRegion = regionArray[sender.tag-1]
+         currentDay = CurrentDay.toDay
+         getCurrentOrderByRegion()
    
-        
     }
+   // checkDay (Filter)
+    @IBAction func toDayClick(_ sender: Any) {
+        currentDay = CurrentDay.toDay
+        getCurrentOrderByRegion()
+    }
+    @IBAction func tomorrowClick(_ sender: Any) {
+        currentDay = CurrentDay.tomorrow
+         getCurrentOrderByRegion()
+    }
+    @IBAction func afterTomorrowClick(_ sender: Any) {
+        currentDay = CurrentDay.afterTomorrow
+         getCurrentOrderByRegion()
+    }
+    
+    
     @IBAction func beack(_ sender: UIButton) {
 
         testView.isHidden = false
@@ -84,12 +79,9 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         
     }
 
-
-  
     @IBAction func lookFor(_ sender: Any) {
         
     }
-    
 
     @IBAction func findClick(_ sender: Any) {
         
@@ -105,23 +97,91 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         nikLabel.text = user.nameUserTaxi
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        
+        textForRegionButton() // set text (region and count order) into button
         let userNib = UINib(nibName: "MainTableViewCell", bundle: nil)
         self.tableView.register(userNib, forCellReuseIdentifier: "MainTableViewCell")
-
-        
-        
         _ = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.update), userInfo: nil, repeats: true);
-     
-        
     }
     
+    func textForRegionButton() {
+        for button in regionButtonArray {
+            var test = String(describing: countOrderIntoRegion[button.tag-1])
+            var textButtonRegion = regionArray[button.tag-1] + "\n " + test
+            button.setTitle(textButtonRegion, for: .normal)
+            button.titleLabel?.textAlignment = NSTextAlignment.center
+        }
+    }
+    
+    func getCurrentOrderByRegion() {
+        countOrderIntoRegion = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        orderCurrentArray.removeAll()
+        var index = 0
+        for order in orderArray {
+            if order.region1 == currentRegion {
+
+                var dateString = order.time
+                var dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "dd.MM.yyyy HH:mm"
+                var date = dateFormatter.date(from: dateString!)
+                if checkDay(dateOrder: date!) {
+                    orderCurrentArray.append(order)
+                }
+            }
+            index = 0
+            for region in regionArray {
+                if region == order.region1 {
+                    countOrderIntoRegion[index] += 1
+                }
+                index += 1
+            }
+
+        }
+        textForRegionButton()
+        self.tableView.reloadData()
+    }
+
+    
+    func checkDay(dateOrder : Date )-> Bool {
+        let date = Date()
+        let calendar = Calendar.current
+        var dayOrder = calendar.component(.day, from: dateOrder)
+        switch currentDay {
+        case .toDay:
+            var toDayCalendar = calendar.component(.day, from: date)
+            if toDayCalendar == dayOrder {
+                return true
+            } else {
+                return false
+            }
+        case .tomorrow:
+            let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: date)
+            var toDayCalendar = calendar.component(.day, from: tomorrow!)
+            if toDayCalendar == dayOrder {
+                return true
+            } else {
+                return false
+            }
+        case .afterTomorrow:
+            
+            let tomorrow = Calendar.current.date(byAdding: .day, value: 2, to: date)
+            var toDayCalendar = calendar.component(.day, from: tomorrow!)
+            if toDayCalendar == dayOrder {
+                return true
+            } else {
+                return false
+            }
+        }
+        
+        
+        return true
+    }
     
     func update() {
-
+        
         let user: UserModel = UserModel.shared
         let avto: AvtoModel = AvtoModel.shared
         let url = BASEURL + "transfer.php"
+        orderArray.removeAll()
         let parameters: Parameters = [
             "code": CODE ,
             "token":  user.tokenUserTaxi ?? "",
@@ -129,9 +189,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             "classAuto": "1",
             ]
         Alamofire.request(url, method: .post, parameters: parameters).responseString{ respons in
-            
             var data = self.convertToDictionary(text: respons.result.value)
-      
             let transfers =  data?["transfer"] as? NSDictionary
                 if transfers != nil {
                     var orderItem: OrderModel
@@ -140,17 +198,16 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                         orderItem = OrderModel()
                         orderItem.loadShotOrder(data: value as! NSDictionary)
                         self.orderArray.append(orderItem)
-          
                     }
                     print(self.orderArray[0].region1)
-                    self.tableView.reloadData()
+                    self.getCurrentOrderByRegion()
                 } else {
-            
+                    Toast.init(text: "На данный момент трансферов нет").show()
                 }
          
         }
-
     }
+    
     func convertToDictionary(text: String?) -> [String: Any]? {
         if let data = text?.data(using: .utf8) {
             do {
@@ -163,13 +220,9 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-
-    }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return orderArray.count
+        return orderCurrentArray.count
     }
     
     
@@ -179,7 +232,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 
          print(indexPath.row)
          var orderItem: OrderModel = OrderModel()
-         orderItem = orderArray[indexPath.row]
+         orderItem = orderCurrentArray[indexPath.row]
          print(orderArray[indexPath.row].id)
          print(orderItem.id)
          cell.whereLabel.text = orderItem.whereOrder
@@ -188,14 +241,10 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
          cell.costLabel.text = orderItem.cost
         
          return cell
-        
-        
+ 
     }
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
     }
-    
-    
- 
 
 }

@@ -8,7 +8,7 @@ pod 'Alamofire', '~> 4.3'
 source 'https://github.com/CocoaPods/Specs.git'
 pod 'PhoneNumberKit', '~> 1.2'
 pod 'InputMask'
-
+pod 'Toaster', '~> 2.0'
 
 
   # Pods for TaxiCramea

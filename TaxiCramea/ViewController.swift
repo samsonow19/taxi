@@ -32,7 +32,7 @@ class ViewController: UIViewController ,MaskedTextFieldDelegateListener {
             "code": CODE,
             ]
         Alamofire.request(url, method: .post, parameters: parameters).responseString{ respons in
-              print(respons.result.value)
+        
             let user: UserModel = UserModel.shared
             user.load(data: self.convertToDictionary(text: respons.result.value)! as NSDictionary)
             user.saveUserModel()

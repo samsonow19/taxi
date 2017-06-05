@@ -30,8 +30,6 @@ class RegViewController: UIViewController,MaskedTextFieldDelegateListener {
         maskedDelegate.listener = self
         numBerTextFild.delegate = maskedDelegate
         maskedDelegate.put(text: "7 ", into: numBerTextFild)
-
-
     }
 
     override func didReceiveMemoryWarning() {
@@ -39,8 +37,6 @@ class RegViewController: UIViewController,MaskedTextFieldDelegateListener {
      
     }
     @IBAction func regClick(_ sender: Any) {
-        
-
         
         let url = BASEURL + "registry.php"
         let parameters: Parameters = [

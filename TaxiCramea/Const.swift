@@ -11,17 +11,11 @@ import Foundation
 
 public var BASEURL = "http://app.taxi-sipaero.ru/api/"
 public var CODE = "94234578754542615479" 
-public var flag: Bool = false
-public var shotid : Int!
 
+var regionArray: [String] = ["Алушта большая", "Бахчисарай и районы", "Евпатория и районы" ,"Керчь и районы" ,"Красноперекопск и районы" ,"Николаевка и районы", "Севастополь и районы" , "Симферополь" , "Судак и районы", "Феодосия и районы", "Бахчисарай и районы", "Ялта большая"]
 
-
-var myToken : String!
-var numberPageShots = 1
-var numberPageComments = 1
-
-var idShot = 0
-var indexShots = 0
-
-
-    
+enum CurrentDay {
+    case toDay
+    case tomorrow
+    case afterTomorrow
+}
