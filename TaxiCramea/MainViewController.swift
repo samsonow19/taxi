@@ -24,13 +24,17 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var nikLabel: UILabel!
     @IBOutlet weak var testView: UIView!
     
+    @IBOutlet weak var dateView: UIView!
     var classAvto: Bool!
     var countOrderIntoRegion = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     var orderArray = [OrderModel]()
     var orderCurrentArray = [OrderModel]()
     var currentRegion: String!  = regionArray[0]
     var currentDay = CurrentDay.toDay
+    var allOrderChoose : Bool = true
+    var currentOptions : CurrentOptions = CurrentOptions.allOrder
     
+    @IBOutlet weak var tabelConstr: NSLayoutConstraint! // 116
     @IBAction func regionButton(_ sender: UIButton) {
         testView.isHidden = true
          currentRegion = regionArray[sender.tag-1]
@@ -72,11 +76,56 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
 
     @IBAction func allOrder(_ sender: Any) {
+        allOrderChoose =  true
+        testView.isHidden = false
+        tabelConstr.constant = 116
+        dateView.isHidden = false
+        
+         currentOptions = .allOrder
         
     }
     
     @IBAction func myOrderClick(_ sender: Any) {
         
+        currentOptions = .myOrder
+        
+        let user: UserModel = UserModel.shared
+        let avto: AvtoModel = AvtoModel.shared
+        let url = BASEURL + "transfer_active.php"
+        orderArray.removeAll()
+        let parameters: Parameters = [
+            "code": CODE ,
+            "token":  user.tokenUserTaxi ?? "",
+            "id_user":  user.idUser ?? "",
+            "classAuto": "1",
+            ]
+        Alamofire.request(url, method: .post, parameters: parameters).responseString{ respons in
+            var data = self.convertToDictionary(text: respons.result.value)
+            let transfers =  data?["transfer"] as? NSDictionary
+            if transfers != nil {
+                var orderItem: OrderModel
+                for (_, value) in transfers! {
+                    print(value)
+                    orderItem = OrderModel()
+                    orderItem.loadLongOrder(data: value as! NSDictionary)
+                    self.orderCurrentArray.append(orderItem)
+                }
+              
+                self.tableView.reloadData()
+              
+            } else {
+                Toast.init(text: "На данный момент трансферов нет").show()
+            }
+            
+        }
+
+        
+        
+        
+        allOrderChoose = false
+        testView.isHidden = true
+        tabelConstr.constant = 0
+        dateView.isHidden = true
     }
 
     @IBAction func lookFor(_ sender: Any) {
@@ -100,6 +149,10 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         textForRegionButton() // set text (region and count order) into button
         let userNib = UINib(nibName: "MainTableViewCell", bundle: nil)
         self.tableView.register(userNib, forCellReuseIdentifier: "MainTableViewCell")
+        
+        let fullOrderNib = UINib(nibName: "LongTableViewCell", bundle: nil)
+        self.tableView.register(fullOrderNib, forCellReuseIdentifier: "LongTableViewCell")
+        
         _ = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.update), userInfo: nil, repeats: true);
     }
     
@@ -200,7 +253,9 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                         self.orderArray.append(orderItem)
                     }
                     print(self.orderArray[0].region1)
-                    self.getCurrentOrderByRegion()
+                    if self.allOrderChoose { // if
+                        self.getCurrentOrderByRegion()
+                    }
                 } else {
                     Toast.init(text: "На данный момент трансферов нет").show()
                 }
@@ -208,7 +263,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
-    func convertToDictionary(text: String?) -> [String: Any]? {
+    
+  func convertToDictionary(text: String?) -> [String: Any]? {
         if let data = text?.data(using: .utf8) {
             do {
                 return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
@@ -228,23 +284,104 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        if currentOptions == .allOrder {
+        
          let cell = tableView.dequeueReusableCell(withIdentifier: "MainTableViewCell", for: indexPath)  as! MainTableViewCell
 
-         print(indexPath.row)
+
          var orderItem: OrderModel = OrderModel()
          orderItem = orderCurrentArray[indexPath.row]
-         print(orderArray[indexPath.row].id)
-         print(orderItem.id)
-         cell.whereLabel.text = orderItem.whereOrder
-         cell.whenceLabel.text = orderItem.whence
+         cell.whereLabel.text = orderItem.whence
+         cell.whenceLabel.text = orderItem.whereOrder
          cell.dateLabel.text = orderItem.time
          cell.costLabel.text = orderItem.cost
         
          return cell
+        }
+        if currentOptions == .myOrder {
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "LongTableViewCell", for: indexPath)  as! LongTableViewCell
+            
+          
+            var orderItem: OrderModel = OrderModel()
+            orderItem = orderCurrentArray[indexPath.row]
+            cell.whereLabel.text = orderItem.whence
+            cell.whenceLabel.text = orderItem.whereOrder
+            cell.dateLabel.text = orderItem.time
+            //cell.costLabel.text = orderItem.cost
+            
+         
+            
+            cell.buttonInfo.addTarget(self, action: #selector(self.displayToolTipDetails(_:)), for: .touchUpInside)
+            
+            return cell
+        }
+        
+        
+        
+        return tableView.dequeueReusableCell(withIdentifier: "MainTableViewCell", for: indexPath)  as! MainTableViewCell
  
     }
+
+    
+    func displayToolTipDetails(_ sender : UIButton) {
+   
+    
+        UIView.setAnimationsEnabled(false)
+        self.tableView.beginUpdates()
+        self.tableView.endUpdates()
+        UIView.setAnimationsEnabled(true)
+    
+    }
+    
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let message = "Взять заказ"
+        let alertOrder = UIAlertController(title: "Взять", message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alertOrder.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { (UIAlertAction) in
+            let user: UserModel = UserModel.shared
+            let avto: AvtoModel = AvtoModel.shared
+            let url = BASEURL + "transfer_buy.php"
+            let parameters: Parameters = [
+                "code": CODE ,
+                "token":  user.tokenUserTaxi ?? "",
+                "id_user":  user.idUser ?? "",
+                "id_zakaz":  self.orderCurrentArray[indexPath.row].id ,
+                "classAuto": "1",
+                ]
+            var indexOrder = 0
+            for oreder in self.orderArray {
+                if oreder.id == self.orderCurrentArray[indexPath.row].id {
+                    self.orderArray.remove(at: indexOrder)
+                }
+                indexOrder += 1
+            }
+            self.orderCurrentArray.remove(at: indexPath.row)
+      
+            Alamofire.request(url, method: .post, parameters: parameters).responseString{ respons in
+                var data = self.convertToDictionary(text: respons.result.value)
+                let transfers =  data?["success"] as? NSDictionary
+                if transfers != nil {
+                   Toast.init(text: "Трансфер перемещен в текущие заказы").show()
+                } else {
+                    Toast.init(text: "Скорее всего ваш трансфер забрали").show()
+                }
+                self.tableView.reloadData()
+            }
+            
+        }))
+        
+        alertOrder.addAction(UIAlertAction(title: "Не беру", style: UIAlertActionStyle.default, handler: nil))
+        self.present(alertOrder, animated: true, completion: nil)
+        
+    }
+    
+    
+
+    
 
 }

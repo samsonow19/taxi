@@ -507,9 +507,11 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="dateView" destination="SdB-PC-BNu" id="LQu-HY-Bya"/>
                         <outlet property="nikLabel" destination="nyI-e2-Y8p" id="yRG-SE-PNL"/>
                         <outlet property="reytLabel" destination="AYj-Dc-xdw" id="yJb-lr-9vq"/>
                         <outlet property="scoreLabel" destination="COm-2I-1He" id="yva-kD-2sO"/>
+                        <outlet property="tabelConstr" destination="Gcl-sv-dsY" id="r5x-Gd-tXO"/>
                         <outlet property="tableView" destination="MAZ-FI-PVc" id="ovO-Gf-yTZ"/>
                         <outlet property="testView" destination="xsR-yn-SDk" id="7xC-w8-QdF"/>
                         <outletCollection property="regionButtonArray" destination="rqb-Tt-ZMO" collectionClass="NSMutableArray" id="hJc-49-7hF"/>
