@@ -27,8 +27,8 @@ class ViewController: UIViewController ,MaskedTextFieldDelegateListener {
         let pass = PassTextFild.text
         let url = BASEURL + "authorization.php"
         let parameters: Parameters = [
-            "name": name ?? "",
-            "password":  pass ?? "",
+            "name":   name ,
+            "password":  pass ,
             "code": CODE,
             ]
         Alamofire.request(url, method: .post, parameters: parameters).responseString{ respons in

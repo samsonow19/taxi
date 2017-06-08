@@ -41,19 +41,19 @@ class RegViewController: UIViewController,MaskedTextFieldDelegateListener {
         let url = BASEURL + "registry.php"
         let parameters: Parameters = [
             "code": CODE,
-            "password":  pass1Text.text ?? "",
-            "password1": pas2Text.text ?? "",
-            "phone": UITextField.text ?? "",
-            "patronymic": patText.text ?? "",
-            "surname": secondNameText.text ?? "",
-            "name": firstNmaeText.text ?? "",
-            "driver_licence": techPasportText.text ?? "",
-            "sity": sityText.text ?? "",
-            "email": emailText.text ?? "",
+            "password":  pass1Text.text ,
+            "password1": pas2Text.text ,
+            "phone": UITextField.text ,
+            "patronymic": patText.text ,
+            "surname": secondNameText.text ,
+            "name": firstNmaeText.text ,
+            "driver_licence": techPasportText.text ,
+            "sity": sityText.text ,
+            "email": emailText.text ,
             ]
         
         Alamofire.request(url, method: .post, parameters: parameters).responseString{ respons in
-            print(respons.result.value)
+        
             let user: UserModel = UserModel.shared
             user.load(data: self.convertToDictionary(text: respons.result.value)! as NSDictionary)
             let secondViewController = self.storyboard?.instantiateViewController(withIdentifier: "MainViewController") as! MainViewController

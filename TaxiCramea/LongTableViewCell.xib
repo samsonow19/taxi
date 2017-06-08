@@ -12,25 +12,25 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="LongTableViewCell" selectionStyle="none" indentationWidth="10" rowHeight="125" id="JPl-vk-9uY" customClass="LongTableViewCell" customModule="TaxiCramea" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="125"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="LongTableViewCell" selectionStyle="none" indentationWidth="10" rowHeight="140" id="JPl-vk-9uY" customClass="LongTableViewCell" customModule="TaxiCramea" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="140"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JPl-vk-9uY" id="9qM-jO-Naf">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="124"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="140"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z8A-Q5-AdZ">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="124.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="139.5"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jjv-ZD-zXu">
-                        <rect key="frame" x="324" y="17" width="27" height="19.5"/>
+                        <rect key="frame" x="324" y="17" width="27" height="34.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BIx-1a-shp">
-                        <rect key="frame" x="8" y="36.5" width="359" height="80"/>
+                        <rect key="frame" x="8" y="51.5" width="359" height="80"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="апвыапвыапвыапвыапвыапвыапывап" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SWA-SE-1Fh">
                                 <rect key="frame" x="8" y="7" width="166.5" height="43"/>
@@ -73,7 +73,7 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r4M-mI-qb1">
-                        <rect key="frame" x="0.0" y="142.5" width="375" height="439"/>
+                        <rect key="frame" x="0.0" y="157.5" width="375" height="439"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o2R-5M-hWe">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="31"/>
@@ -383,14 +383,23 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="buttonInfo" destination="iE6-4i-snd" id="ldv-0K-U6b"/>
+                <outlet property="commentLabel" destination="TBl-wW-sFh" id="joR-ns-h1V"/>
+                <outlet property="contactLabel" destination="nMQ-4l-r2j" id="ERK-gL-mXW"/>
+                <outlet property="costLabel" destination="hrB-E2-dnt" id="bMn-qE-xbp"/>
                 <outlet property="dateLabel" destination="Jjv-ZD-zXu" id="Ga7-4z-Cpb"/>
+                <outlet property="infoLabel" destination="cWZ-kD-6mJ" id="zdG-mr-wYO"/>
                 <outlet property="infoView" destination="r4M-mI-qb1" id="mkZ-hm-DlN"/>
+                <outlet property="komissionLabel" destination="XpF-aF-asO" id="NgZ-iC-o8F"/>
+                <outlet property="nameLabel" destination="2Ds-BP-pyU" id="Cdi-kG-scY"/>
+                <outlet property="numberLabel" destination="R15-jf-RMJ" id="Lqx-dn-AR7"/>
+                <outlet property="plainLabel" destination="p0M-gb-orH" id="rAy-uE-238"/>
                 <outlet property="testConstr" destination="QdK-QT-Lqo" id="3yL-of-4iZ"/>
                 <outlet property="testInfo" destination="Ymu-Te-oE2" id="2si-Dt-SdU"/>
                 <outlet property="whenceLabel" destination="Zt9-IG-3MK" id="zZe-NA-sKf"/>
                 <outlet property="whereLabel" destination="SWA-SE-1Fh" id="d9o-Yg-8Qc"/>
+                <outlet property="yourLabel" destination="uWO-zL-pEd" id="rhQ-JS-jE0"/>
             </connections>
-            <point key="canvasLocation" x="-14.5" y="-82.5"/>
+            <point key="canvasLocation" x="-14.5" y="-75"/>
         </tableViewCell>
     </objects>
 </document>

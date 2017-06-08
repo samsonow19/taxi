@@ -90,13 +90,13 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         currentOptions = .myOrder
         
         let user: UserModel = UserModel.shared
-        let avto: AvtoModel = AvtoModel.shared
+        //let avto: AvtoModel = AvtoModel.shared
         let url = BASEURL + "transfer_active.php"
         orderArray.removeAll()
         let parameters: Parameters = [
             "code": CODE ,
-            "token":  user.tokenUserTaxi ?? "",
-            "id_user":  user.idUser ?? "",
+            "token":  user.tokenUserTaxi ,
+            "id_user":  user.idUser,
             "classAuto": "1",
             ]
         Alamofire.request(url, method: .post, parameters: parameters).responseString{ respons in
@@ -157,9 +157,11 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func textForRegionButton() {
+        var test : String!
+        var textButtonRegion : String!
         for button in regionButtonArray {
-            var test = String(describing: countOrderIntoRegion[button.tag-1])
-            var textButtonRegion = regionArray[button.tag-1] + "\n " + test
+            test = String(describing: countOrderIntoRegion[button.tag-1])
+            textButtonRegion = regionArray[button.tag-1] + "\n " + test
             button.setTitle(textButtonRegion, for: .normal)
             button.titleLabel?.textAlignment = NSTextAlignment.center
         }
@@ -169,12 +171,15 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         countOrderIntoRegion = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         orderCurrentArray.removeAll()
         var index = 0
+        var dateString : String!
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM.yyyy HH:mm"
+
         for order in orderArray {
             if order.region1 == currentRegion {
 
-                var dateString = order.time
-                var dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "dd.MM.yyyy HH:mm"
+                dateString = order.time
+           
                 var date = dateFormatter.date(from: dateString!)
                 if checkDay(dateOrder: date!) {
                     orderCurrentArray.append(order)
@@ -197,10 +202,10 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     func checkDay(dateOrder : Date )-> Bool {
         let date = Date()
         let calendar = Calendar.current
-        var dayOrder = calendar.component(.day, from: dateOrder)
+        let dayOrder = calendar.component(.day, from: dateOrder)
         switch currentDay {
         case .toDay:
-            var toDayCalendar = calendar.component(.day, from: date)
+            let toDayCalendar = calendar.component(.day, from: date)
             if toDayCalendar == dayOrder {
                 return true
             } else {
@@ -208,7 +213,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
         case .tomorrow:
             let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: date)
-            var toDayCalendar = calendar.component(.day, from: tomorrow!)
+            let toDayCalendar = calendar.component(.day, from: tomorrow!)
             if toDayCalendar == dayOrder {
                 return true
             } else {
@@ -217,7 +222,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         case .afterTomorrow:
             
             let tomorrow = Calendar.current.date(byAdding: .day, value: 2, to: date)
-            var toDayCalendar = calendar.component(.day, from: tomorrow!)
+            let toDayCalendar = calendar.component(.day, from: tomorrow!)
             if toDayCalendar == dayOrder {
                 return true
             } else {
@@ -237,8 +242,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         orderArray.removeAll()
         let parameters: Parameters = [
             "code": CODE ,
-            "token":  user.tokenUserTaxi ?? "",
-            "id_user":  user.idUser ?? "",
+            "token":  user.tokenUserTaxi ,
+            "id_user":  user.idUser ,
             "classAuto": "1",
             ]
         Alamofire.request(url, method: .post, parameters: parameters).responseString{ respons in
@@ -284,41 +289,39 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if currentOptions == .allOrder {
-        
-         let cell = tableView.dequeueReusableCell(withIdentifier: "MainTableViewCell", for: indexPath)  as! MainTableViewCell
-
-
-         var orderItem: OrderModel = OrderModel()
-         orderItem = orderCurrentArray[indexPath.row]
-         cell.whereLabel.text = orderItem.whence
-         cell.whenceLabel.text = orderItem.whereOrder
-         cell.dateLabel.text = orderItem.time
-         cell.costLabel.text = orderItem.cost
+        if currentOptions == .allOrder {    
+            let cell = tableView.dequeueReusableCell(withIdentifier: "MainTableViewCell", for: indexPath)  as! MainTableViewCell
+            var orderItem: OrderModel = OrderModel()
+            orderItem = orderCurrentArray[indexPath.row]
+            cell.whereLabel.text = orderItem.whence
+            cell.whenceLabel.text = orderItem.whereOrder
+            cell.dateLabel.text = orderItem.time
+            cell.costLabel.text = orderItem.cost
         
          return cell
         }
         if currentOptions == .myOrder {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "LongTableViewCell", for: indexPath)  as! LongTableViewCell
-            
-          
+        
             var orderItem: OrderModel = OrderModel()
             orderItem = orderCurrentArray[indexPath.row]
             cell.whereLabel.text = orderItem.whence
             cell.whenceLabel.text = orderItem.whereOrder
             cell.dateLabel.text = orderItem.time
-            //cell.costLabel.text = orderItem.cost
-            
-         
+            cell.costLabel.text = orderItem.cost
+            cell.commentLabel.text = orderItem.comment
+            cell.plainLabel.text = orderItem.flight
+            cell.numberLabel.text = orderItem.number
+            cell.nameLabel.text = orderItem.name
+            cell.contactLabel.text = orderItem.contact
+            cell.infoLabel.text = orderItem.info
+            cell.yourLabel.text = orderItem.your
             
             cell.buttonInfo.addTarget(self, action: #selector(self.displayToolTipDetails(_:)), for: .touchUpInside)
             
             return cell
         }
-        
-        
-        
         return tableView.dequeueReusableCell(withIdentifier: "MainTableViewCell", for: indexPath)  as! MainTableViewCell
  
     }
@@ -344,12 +347,12 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         let alertOrder = UIAlertController(title: "Взять", message: message, preferredStyle: UIAlertControllerStyle.alert)
         alertOrder.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { (UIAlertAction) in
             let user: UserModel = UserModel.shared
-            let avto: AvtoModel = AvtoModel.shared
+            //let avto: AvtoModel = AvtoModel.shared
             let url = BASEURL + "transfer_buy.php"
             let parameters: Parameters = [
                 "code": CODE ,
-                "token":  user.tokenUserTaxi ?? "",
-                "id_user":  user.idUser ?? "",
+                "token":  user.tokenUserTaxi ,
+                "id_user":  user.idUser ,
                 "id_zakaz":  self.orderCurrentArray[indexPath.row].id ,
                 "classAuto": "1",
                 ]

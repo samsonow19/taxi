@@ -18,6 +18,16 @@ class LongTableViewCell: UITableViewCell {
     @IBOutlet weak var costLabel: UILabel!
     
     @IBOutlet weak var testInfo: NSLayoutConstraint! // 497
+    
+    @IBOutlet weak var komissionLabel: UILabel!
+   
+    @IBOutlet weak var commentLabel: UILabel!
+    @IBOutlet weak var plainLabel: UILabel!
+    @IBOutlet weak var numberLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var contactLabel: UILabel!
+    @IBOutlet weak var infoLabel: UILabel!
+    @IBOutlet weak var yourLabel: UILabel!
     @IBOutlet weak var buttonInfo: UIButton!
     @IBOutlet weak var testConstr: NSLayoutConstraint!
     @IBOutlet weak var dateLabel: UILabel!

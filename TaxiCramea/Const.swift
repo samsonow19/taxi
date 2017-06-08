@@ -20,10 +20,30 @@ enum CurrentDay {
     case afterTomorrow
 }
 
+func getStrJSON(data: NSDictionary, key: String) -> String{
+    //let info : AnyObject? = data[key]
+    if let info = data[key] as? String{
+        return info
+    }
+    return ""
+    
+}
+
+
 
 enum CurrentOptions {
     case allOrder
     case myOrder
     case iLookFor
     case iFind
+}
+func convertToDictionary(text: String?) -> [String: Any]? {
+    if let data = text?.data(using: .utf8) {
+        do {
+            return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    return nil
 }
