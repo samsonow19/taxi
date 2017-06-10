@@ -48,6 +48,15 @@ class OrderModel {
     }
     
     
+    
+    func loadBuyOrder(data : NSDictionary) {
+        self.id = getStrJSON(data: data, key: "id")
+        self.time = getStrJSON(data: data, key: "traffic_date")
+        self.region1 = getStrJSON(data: data, key: "region1")
+        self.region2 = getStrJSON(data: data, key: "region1")
+    }
+    
+    
     func loadLongOrder(data : NSDictionary) { ///write
         self.id = getStrJSON(data: data, key: "id")
         self.time = getStrJSON(data: data, key: "traffic_date")

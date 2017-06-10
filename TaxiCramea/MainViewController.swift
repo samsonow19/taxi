@@ -8,11 +8,13 @@
 
 import UIKit
 import Alamofire
-import Toaster
+
 
 
 
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+ 
     
     
     @IBOutlet var regionButtonArray: [UIButton]!
@@ -65,8 +67,37 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
  
     @IBAction func buyClick(_ sender: Any) {
+
+        currentOptions = .iLookFor
+        let user: UserModel = UserModel.shared
+        let avto: AvtoModel = AvtoModel.shared
+        let url = BASEURL + "buy_main.php"
+        orderCurrentArray.removeAll()
+        let parameters: Parameters = [
+            "code": CODE ,
+            "token":  user.tokenUserTaxi ,
+            "id_user":  user.idUser ,]
+        Alamofire.request(url, method: .post, parameters: parameters).responseString{ respons in
+            var data = convertToDictionary(text: respons.result.value)
+            let transfers =  data?["buy"] as? NSDictionary
+            if transfers != nil {
+                
+                for (_, value) in transfers! {
+                    print(value)
+                    orderItem = OrderModel()
+                    orderItem.loadBuyOrder(data: value as! NSDictionary)
+                    self.orderCurrentArray.append(orderItem)
+                }
+                
+                self.tableView.reloadData()
+                
+            } else {
+            
+            }
+        }
         
     }
+    
     @IBAction func soundClick(_ sender: Any) {
         
     }
@@ -81,7 +112,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         tabelConstr.constant = 116
         dateView.isHidden = false
         
-         currentOptions = .allOrder
+        currentOptions = .allOrder
         
     }
     
@@ -114,14 +145,11 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                 self.tableView.reloadData()
               
             } else {
-                Toast.init(text: "На данный момент трансферов нет").show()
+               // Toast.init(text: "На данный момент трансферов нет").show()
             }
             
         }
 
-        
-        
-        
         allOrderChoose = false
         testView.isHidden = true
         tabelConstr.constant = 0
@@ -135,6 +163,45 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBAction func findClick(_ sender: Any) {
         
     }
+    
+    
+    
+    
+    enum CurrentDay {
+        case toDay
+        case tomorrow
+        case afterTomorrow
+    }
+    
+    enum CurrentOptions {
+        case allOrder
+        case myOrder
+        case iLookFor
+        case iFind
+    }
+    
+    func convertToDictionary(text: String?) -> [String: Any]? {
+        if let data = text?.data(using: .utf8) {
+            do {
+                return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        return nil
+    }
+    
+    func getStrJSON(data: NSDictionary, key: String) -> String{
+        //let info : AnyObject? = data[key]
+        if let info = data[key] as? String{
+            return info
+        }
+        return ""
+        
+    }
+    
+    var regionArray: [String] = ["Алушта большая", "Бахчисарай и районы", "Евпатория и районы" ,"Керчь и районы" ,"Красноперекопск и районы" ,"Николаевка и районы", "Севастополь и районы" , "Аэропорт Симферополя" , "Судак и районы", "Феодосия и районы", "Бахчисарай и районы", "Ялта большая"]
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -152,6 +219,11 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         let fullOrderNib = UINib(nibName: "LongTableViewCell", bundle: nil)
         self.tableView.register(fullOrderNib, forCellReuseIdentifier: "LongTableViewCell")
+        
+        
+        let findOrderNib = UINib(nibName: "BuyTableViewCell", bundle: nil)
+        self.tableView.register(findOrderNib, forCellReuseIdentifier: "BuyTableViewCell")
+        
         
         _ = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.update), userInfo: nil, repeats: true);
     }
@@ -262,8 +334,10 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                         self.getCurrentOrderByRegion()
                     }
                 } else {
-                    Toast.init(text: "На данный момент трансферов нет").show()
+                  //  Toast.init(text: "На данный момент трансферов нет").show()
                 }
+            
+            
          
         }
     }
@@ -322,6 +396,25 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             return cell
         }
+        
+        
+        if currentOptions == .iLookFor {
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "BuyTableViewCell", for: indexPath)  as! BuyTableViewCell
+            
+            var orderItem: OrderModel = OrderModel()
+            orderItem = orderCurrentArray[indexPath.row]
+            cell.whereTextFild.text = orderItem.region1
+            cell.whenceTextFild.text = orderItem.region2
+            cell.dateTextFild.text = orderItem.time
+        
+ 
+            return cell
+        }
+        
+        
+        
+        
         return tableView.dequeueReusableCell(withIdentifier: "MainTableViewCell", for: indexPath)  as! MainTableViewCell
  
     }

@@ -8,7 +8,7 @@
 
 import UIKit
 import Alamofire
-import Toaster
+
 
 class OptionsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet weak var yearPicker: UITextField!
@@ -154,10 +154,10 @@ class OptionsViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
                 
                 avto.classAvtoUserTaxi = transfers?["class"] as! String 
                 
-                Toast.init(text: "Данные загружены").show()
+                //Toast.init(text: "Данные загружены").show()
                 
             } else {
-                Toast.init(text: "Не удалось взять данные").show()
+                //Toast.init(text: "Не удалось взять данные").show()
             }
             
         }

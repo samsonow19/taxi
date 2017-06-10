@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1217" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="HXL-fH-tb6">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="HXL-fH-tb6">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -838,7 +838,7 @@
         <!--Куплю-->
         <scene sceneID="23K-Yp-p9m">
             <objects>
-                <viewController id="TXF-9W-yyy" sceneMemberID="viewController">
+                <viewController id="TXF-9W-yyy" customClass="BuyViewController" customModule="TaxiCramea" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hvn-DW-Rbx"/>
                         <viewControllerLayoutGuide type="bottom" id="QA7-iH-gqo"/>
@@ -859,13 +859,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZoL-ZN-ktm">
-                                <rect key="frame" x="16" y="162" width="343" height="30"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="Дата">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="С" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iCT-8O-FUi">
                                 <rect key="frame" x="32" y="202" width="12" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -873,59 +866,78 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="До" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="abb-uJ-czE">
-                                <rect key="frame" x="266" y="202" width="22" height="21"/>
+                                <rect key="frame" x="221" y="202" width="22" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B4A-BB-zCQ">
-                                <rect key="frame" x="52" y="197" width="47" height="30"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="Время">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FBt-eW-uGu">
-                                <rect key="frame" x="296" y="197.5" width="47" height="30"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="Время">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kS4-4G-dF8">
                                 <rect key="frame" x="16" y="235" width="343" height="30"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" title="Сохранить">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="savefindOrder:" destination="TXF-9W-yyy" eventType="touchUpInside" id="z3U-77-q90"/>
+                                </connections>
                             </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Дата" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2mX-OW-lvG">
+                                <rect key="frame" x="16" y="154" width="343" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Время" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jOr-0r-J71">
+                                <rect key="frame" x="73" y="197" width="97" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="97" id="lgu-Uo-veG"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Время" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="awu-bq-Hhb">
+                                <rect key="frame" x="262" y="197" width="97" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="97" id="1eo-u7-Gjd"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="m8J-Ki-fpa" firstAttribute="leading" secondItem="bC5-Gm-xxY" secondAttribute="leading" constant="16" id="3w7-s8-OmX"/>
-                            <constraint firstItem="FBt-eW-uGu" firstAttribute="leading" secondItem="abb-uJ-czE" secondAttribute="trailing" constant="8" id="4D9-5H-C3i"/>
-                            <constraint firstItem="abb-uJ-czE" firstAttribute="centerY" secondItem="iCT-8O-FUi" secondAttribute="centerY" id="4Yd-d3-QSK"/>
-                            <constraint firstItem="m8J-Ki-fpa" firstAttribute="top" secondItem="nRd-1B-cBB" secondAttribute="bottom" constant="14" id="7xt-Ji-FlR"/>
-                            <constraint firstAttribute="trailing" secondItem="nRd-1B-cBB" secondAttribute="trailing" constant="16" id="CFZ-DB-zSi"/>
-                            <constraint firstAttribute="trailing" secondItem="m8J-Ki-fpa" secondAttribute="trailing" constant="16" id="CcE-bK-2t7"/>
-                            <constraint firstItem="nRd-1B-cBB" firstAttribute="leading" secondItem="bC5-Gm-xxY" secondAttribute="leading" constant="16" id="Dvr-GB-swj"/>
-                            <constraint firstItem="ZoL-ZN-ktm" firstAttribute="leading" secondItem="bC5-Gm-xxY" secondAttribute="leading" constant="16" id="G8W-Vy-PZz"/>
-                            <constraint firstItem="iCT-8O-FUi" firstAttribute="top" secondItem="ZoL-ZN-ktm" secondAttribute="bottom" constant="10" id="Iuw-gA-N8K"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="FBt-eW-uGu" secondAttribute="trailing" constant="16" id="LdD-j5-vVC"/>
-                            <constraint firstItem="B4A-BB-zCQ" firstAttribute="centerY" secondItem="iCT-8O-FUi" secondAttribute="centerY" id="Sxf-tR-4ah"/>
-                            <constraint firstItem="kS4-4G-dF8" firstAttribute="top" secondItem="FBt-eW-uGu" secondAttribute="bottom" constant="8" id="Was-Ct-fYa"/>
-                            <constraint firstItem="kS4-4G-dF8" firstAttribute="leading" secondItem="bC5-Gm-xxY" secondAttribute="leading" constant="16" id="YVu-Sp-Ycc"/>
-                            <constraint firstAttribute="trailing" secondItem="ZoL-ZN-ktm" secondAttribute="trailing" constant="16" id="blh-00-Qfk"/>
-                            <constraint firstItem="nRd-1B-cBB" firstAttribute="top" secondItem="hvn-DW-Rbx" secondAttribute="bottom" constant="8" id="e8m-Gq-dTu"/>
-                            <constraint firstItem="FBt-eW-uGu" firstAttribute="centerY" secondItem="iCT-8O-FUi" secondAttribute="centerY" id="fov-WV-vhL"/>
-                            <constraint firstItem="ZoL-ZN-ktm" firstAttribute="top" secondItem="m8J-Ki-fpa" secondAttribute="bottom" constant="16" id="iki-UN-1G1"/>
-                            <constraint firstItem="iCT-8O-FUi" firstAttribute="leading" secondItem="bC5-Gm-xxY" secondAttribute="leadingMargin" constant="16" id="jyq-vE-eC2"/>
-                            <constraint firstItem="B4A-BB-zCQ" firstAttribute="leading" secondItem="iCT-8O-FUi" secondAttribute="trailing" constant="8" id="ptM-jf-ESO"/>
-                            <constraint firstAttribute="trailing" secondItem="kS4-4G-dF8" secondAttribute="trailing" constant="16" id="se7-q9-82i"/>
+                            <constraint firstItem="abb-uJ-czE" firstAttribute="centerY" secondItem="iCT-8O-FUi" secondAttribute="centerY" id="2Ae-Bh-NVb"/>
+                            <constraint firstItem="jOr-0r-J71" firstAttribute="centerY" secondItem="iCT-8O-FUi" secondAttribute="centerY" id="3LJ-sD-gmj"/>
+                            <constraint firstItem="awu-bq-Hhb" firstAttribute="leading" secondItem="abb-uJ-czE" secondAttribute="trailing" constant="19" id="4oI-x0-25c"/>
+                            <constraint firstItem="abb-uJ-czE" firstAttribute="leading" secondItem="jOr-0r-J71" secondAttribute="trailing" constant="51" id="8Da-y7-CWQ"/>
+                            <constraint firstItem="kS4-4G-dF8" firstAttribute="trailing" secondItem="bC5-Gm-xxY" secondAttribute="trailingMargin" id="8XJ-1t-fum"/>
+                            <constraint firstItem="iCT-8O-FUi" firstAttribute="top" secondItem="2mX-OW-lvG" secondAttribute="bottom" constant="18" id="A9c-qe-6Gy"/>
+                            <constraint firstItem="m8J-Ki-fpa" firstAttribute="trailing" secondItem="bC5-Gm-xxY" secondAttribute="trailingMargin" id="DTe-gh-08m"/>
+                            <constraint firstItem="2mX-OW-lvG" firstAttribute="trailing" secondItem="bC5-Gm-xxY" secondAttribute="trailingMargin" id="Jep-Hh-nNP"/>
+                            <constraint firstItem="2mX-OW-lvG" firstAttribute="top" secondItem="m8J-Ki-fpa" secondAttribute="bottom" constant="8" id="MFw-xg-sfN"/>
+                            <constraint firstItem="m8J-Ki-fpa" firstAttribute="leading" secondItem="bC5-Gm-xxY" secondAttribute="leadingMargin" id="QFO-Eh-AWg"/>
+                            <constraint firstItem="kS4-4G-dF8" firstAttribute="top" secondItem="iCT-8O-FUi" secondAttribute="bottom" constant="12" id="Ryb-db-iet"/>
+                            <constraint firstItem="nRd-1B-cBB" firstAttribute="trailing" secondItem="bC5-Gm-xxY" secondAttribute="trailingMargin" id="YFT-IE-1C9"/>
+                            <constraint firstItem="jOr-0r-J71" firstAttribute="leading" secondItem="iCT-8O-FUi" secondAttribute="trailing" constant="29" id="ZGi-Gj-uWr"/>
+                            <constraint firstItem="awu-bq-Hhb" firstAttribute="centerY" secondItem="iCT-8O-FUi" secondAttribute="centerY" id="axT-Yi-k33"/>
+                            <constraint firstItem="nRd-1B-cBB" firstAttribute="leading" secondItem="bC5-Gm-xxY" secondAttribute="leadingMargin" id="dLK-gS-lhb"/>
+                            <constraint firstItem="m8J-Ki-fpa" firstAttribute="top" secondItem="nRd-1B-cBB" secondAttribute="bottom" constant="14" id="er8-TU-o2M"/>
+                            <constraint firstItem="kS4-4G-dF8" firstAttribute="leading" secondItem="bC5-Gm-xxY" secondAttribute="leadingMargin" id="gSt-1Y-Orf"/>
+                            <constraint firstItem="nRd-1B-cBB" firstAttribute="top" secondItem="hvn-DW-Rbx" secondAttribute="bottom" constant="8" id="hAM-mR-gFw"/>
+                            <constraint firstItem="iCT-8O-FUi" firstAttribute="leading" secondItem="bC5-Gm-xxY" secondAttribute="leadingMargin" constant="16" id="qLn-cG-N27"/>
+                            <constraint firstItem="2mX-OW-lvG" firstAttribute="leading" secondItem="bC5-Gm-xxY" secondAttribute="leadingMargin" id="tNO-dq-otr"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Куплю" id="TpO-Po-onk"/>
+                    <connections>
+                        <outlet property="dateTextFild" destination="2mX-OW-lvG" id="ZbL-ut-zC4"/>
+                        <outlet property="timeTextFild1" destination="jOr-0r-J71" id="W9f-3A-tKL"/>
+                        <outlet property="timeTextFild2" destination="awu-bq-Hhb" id="ej2-3r-n20"/>
+                        <outlet property="wenceTextFild" destination="m8J-Ki-fpa" id="L3c-SE-amI"/>
+                        <outlet property="whereTextFild" destination="nRd-1B-cBB" id="LZP-hZ-Rdy"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lbc-Sr-UFq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

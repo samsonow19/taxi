@@ -10,6 +10,16 @@ import UIKit
 
 class BuyTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var dateTextFild: UILabel!
+    
+    @IBOutlet weak var time1TextFild: UILabel!
+    
+    @IBOutlet weak var time2TextFild: UILabel!
+    
+    @IBOutlet weak var whereTextFild: UILabel!
+    
+    @IBOutlet weak var whenceTextFild: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
